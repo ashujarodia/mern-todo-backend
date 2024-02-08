@@ -2,14 +2,18 @@ import express from 'express';
 import userRouter from './routes/user.js';
 import taskRouter from './routes/task.js';
 import cors from 'cors';
+import { config } from 'dotenv';
 
 export const app = express();
+config({
+	path: './data/config.env',
+});
 
 //using middlewares
 app.use(express.json());
 app.use(
 	cors({
-		origin: ['http://localhost:5173'],
+		origin: [process.env.FRONTEND_URI],
 		methods: ['GET', 'POST', 'PUT', 'DELETE'],
 		credentials: true,
 	})
